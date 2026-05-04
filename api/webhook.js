@@ -32,6 +32,7 @@ function menuWithText() {
 function menuOnly() {
   return {
     type: 'text',
+    text: 'ตามนี้เลยจ้า',
     quickReply: { items: menuItems() }
   };
 }
