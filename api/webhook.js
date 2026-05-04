@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   const TOKEN = 'RXKu2/hwZTvKWtyK6cXwUhiIoVZopV0+qP1IepkjkL+DYQKZVTXkDztJ25hFVRPnLncaW6NuJoT+I6xO7MHq9J1wEbm3NTXOQAbzMWt0prdLMnoLtzmiDZ3uf5BfVQyqL4pfbGMhT1+hBpfR1hNiDgdB04t89/1O/w1cDnyilFU=';
 
-const events = req.body.events || [];
+  const events = req.body.events || [];
 
   const keywords = [
     'score', 'howto', 'diamond', 'evolution',
@@ -39,15 +39,16 @@ const events = req.body.events || [];
 function menu() {
   return {
     type: 'text',
-    text: 'เลือกสิ่งที่อยากรู้จากเมนูด้านล่าง',
+    text: 'เลือกคำถามจากเมนู👇',
     quickReply: {
       items: [
+        btn('⭐ การเก็บคะแนน', 'score'),
         btn('🎮 วิธีการเล่นเกม', 'howto'),
-        btn('💎 หาบัตรสุ่มเพชรได้จากไหน', 'diamond'),
+        btn('🎉 อีเวนต์', 'event'),
+        btn('💎 บัตรสุ่มเพชร', 'diamond'),
         btn('🧬 Evolution', 'evolution'),
         btn('🏆 ระบบ Rank', 'rank'),
         btn('🎲 อัตราการสุ่ม', 'rate'),
-        btn('🎉 อีเวนต์', 'event'),
         btn('🏅 Gymleader', 'gym'),
       ]
     }
