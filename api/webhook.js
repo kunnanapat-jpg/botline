@@ -3,56 +3,52 @@ export default async function handler(req, res) {
 
   const events = req.body.events || [];
 
-  const keywords = [
-    'score', 'howto', 'diamond', 'evolution',
-    'rank', 'rate', 'event', 'gym'
-  ];
-
   for (let event of events) {
 
-    if (event.type !== 'message' && event.type !== 'follow') continue;
-
-    let messages = [];
-
-    // 🟢 ถ้าเป็น keyword → ใส่ response ก่อน
-    if (event.type === 'message') {
-      const text = event.message.text;
-
-      if (keywords.includes(text)) {
-        messages.push({
-          type: 'text',
-          text: `คุณเลือก: ${text}`
-        });
-      }
+    // 🟢 ตอน Add เพื่อน → มีข้อความ
+    if (event.type === 'follow') {
+      await reply(event.replyToken, [menuWithText()], TOKEN);
     }
 
-    // 🟢 ใส่เมนูทุกครั้ง (สำคัญ)
-    messages.push(menu());
-
-    await reply(event.replyToken, messages, TOKEN);
+    // 🟢 ตอนพิมพ์ → ไม่มีข้อความแล้ว
+    if (event.type === 'message') {
+      await reply(event.replyToken, [menuOnly()], TOKEN);
+    }
   }
 
   res.status(200).end();
 }
 
-// =========================
-function menu() {
+// 🔹 มีข้อความ (ใช้ครั้งเดียว)
+function menuWithText() {
+  return {
+    type: 'text',
+    text: '📘 เลือกหัวข้อที่อยากรู้ 👇',
+    quickReply: { items: menuItems() }
+  };
+}
+
+// 🔹 ไม่มีข้อความ (ใช้ตลอด)
+function menuOnly() {
   return {
     type: 'text',
     text: 'เลือกคำถามจากเมนู👇',
-    quickReply: {
-      items: [
-        btn('⭐ การเก็บคะแนน', 'score'),
-        btn('🎮 วิธีการเล่นเกม', 'howto'),
-        btn('🎉 อีเวนต์', 'event'),
-        btn('💎 บัตรสุ่มเพชร', 'diamond'),
-        btn('🧬 Evolution', 'evolution'),
-        btn('🏆 ระบบ Rank', 'rank'),
-        btn('🎲 อัตราการสุ่ม', 'rate'),
-        btn('🏅 Gymleader', 'gym'),
-      ]
-    }
+    quickReply: { items: menuItems() }
   };
+}
+
+// 🔹 เมนู
+function menuItems() {
+  return [
+    btn('⭐ การเก็บคะแนน', 'score'),
+    btn('🎮 วิธีการเล่นเกม', 'howto'),
+    btn('🎉 อีเวนต์', 'event'),
+    btn('💎 บัตรสุ่มเพชร', 'diamond'),
+    btn('🧬 Evolution', 'evolution'),
+    btn('🏆 ระบบ Rank', 'rank'),
+    btn('🎲 อัตราการสุ่ม', 'rate'),
+    btn('🏅 Gymleader', 'gym'),
+  ];
 }
 
 function btn(label, text) {
