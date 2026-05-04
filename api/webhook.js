@@ -39,12 +39,11 @@ const events = req.body.events || [];
 function menu() {
   return {
     type: 'text',
-    text: '👆 ตามนี้เลยจ้า',
+    text: 'เลือกสิ่งที่อยากรู้จากเมนูด้านล่าง',
     quickReply: {
       items: [
-        btn('⭐ การเก็บคะแนน', 'score'),
         btn('🎮 วิธีการเล่นเกม', 'howto'),
-        btn('💎 บัตรสุ่มเพชร', 'diamond'),
+        btn('💎 หาบัตรสุ่มเพชรได้จากไหน', 'diamond'),
         btn('🧬 Evolution', 'evolution'),
         btn('🏆 ระบบ Rank', 'rank'),
         btn('🎲 อัตราการสุ่ม', 'rate'),
