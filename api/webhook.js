@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const TOKEN = 'ใส่ TOKEN ของคุณตรงนี้';
+  const TOKEN = 'RXKu2/hwZTvKWtyK6cXwUhiIoVZopV0+qP1IepkjkL+DYQKZVTXkDztJ25hFVRPnLncaW6NuJoT+I6xO7MHq9J1wEbm3NTXOQAbzMWt0prdLMnoLtzmiDZ3uf5BfVQyqL4pfbGMhT1+hBpfR1hNiDgdB04t89/1O/w1cDnyilFU=';
 
   const events = req.body.events || [];
 
