@@ -11,8 +11,6 @@ export default async function handler(req, res) {
     }
 
     // 🟢 ตอนพิมพ์ → ไม่มีข้อความแล้ว
-    if (event.type === 'message') {
-      await reply(event.replyToken, [menuOnly()], TOKEN);
     }
   }
 
@@ -40,14 +38,14 @@ function menuOnly() {
 // 🔹 เมนู
 function menuItems() {
   return [
-    btn('⭐ การเก็บคะแนน', 'score'),
     btn('🎮 วิธีการเล่นเกม', 'howto'),
+    btn('🎲 อัตราการสุ่ม', 'rate'),
+    btn('🎉 อีเวนต์', 'event'),
     btn('💎 บัตรสุ่มเพชร', 'diamond'),
     btn('🧬 Evolution', 'evolution'),
     btn('🏆 ระบบ Rank', 'rank'),
-    btn('🎲 อัตราการสุ่ม', 'rate'),
-    btn('🎉 อีเวนต์', 'event'),
     btn('🏅 Gymleader', 'gym'),
+    btn('⭐ การเก็บคะแนน', 'score'),
   ];
 }
 
