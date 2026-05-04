@@ -9,8 +9,9 @@ export default async function handler(req, res) {
     if (event.type === 'follow') {
       await reply(event.replyToken, [menuWithText()], TOKEN);
     }
-
     // 🟢 ตอนพิมพ์ → ไม่มีข้อความแล้ว
+      if (event.type === 'message') {
+      await reply(event.replyToken, [menuOnly()], TOKEN);
     }
   }
 
@@ -28,11 +29,16 @@ function menuWithText() {
 
 // 🔹 ไม่มีข้อความ (ใช้ตลอด)
 function menuOnly() {
-  return {
-    type: 'text',
-    text: 'ตามนี้เลยจ้า',
-    quickReply: { items: menuItems() }
-  };
+  return [
+    btn('🎮 วิธีการเล่นเกม', 'howto'),
+    btn('🎲 อัตราการสุ่ม', 'rate'),
+    btn('🎉 อีเวนต์', 'event'),
+    btn('💎 บัตรสุ่มเพชร', 'diamond'),
+    btn('🧬 Evolution', 'evolution'),
+    btn('🏆 ระบบ Rank', 'rank'),
+    btn('🏅 Gymleader', 'gym'),
+    btn('⭐ การเก็บคะแนน', 'score'),
+  ];
 }
 
 // 🔹 เมนู
