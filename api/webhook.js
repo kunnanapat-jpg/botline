@@ -16,14 +16,18 @@ export default async function handler(req, res) {
           messages: [
             {
               type: 'text',
-              text: '📘 เลือกหัวข้อที่อยากรู้ 👇',
+              // 👇 ตัวอักษรล่องหน = ไม่มีข้อความรก
+              text: '\u200B',
               quickReply: {
                 items: [
+                  btn('⭐ การเก็บคะแนน', 'score'),
+                  btn('🎮 วิธีการเล่นเกม', 'howto'),
                   btn('💎 บัตรสุ่มเพชร', 'diamond'),
                   btn('🧬 Evolution', 'evolution'),
                   btn('🏆 ระบบ Rank', 'rank'),
                   btn('🎲 อัตราการสุ่ม', 'rate'),
                   btn('🎉 อีเวนต์', 'event'),
+                  btn('🏅 Gymleader', 'gym'),
                 ]
               }
             }
