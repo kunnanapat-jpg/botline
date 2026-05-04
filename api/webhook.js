@@ -1,58 +1,58 @@
 export default async function handler(req, res) {
   const TOKEN = 'RXKu2/hwZTvKWtyK6cXwUhiIoVZopV0+qP1IepkjkL+DYQKZVTXkDztJ25hFVRPnLncaW6NuJoT+I6xO7MHq9J1wEbm3NTXOQAbzMWt0prdLMnoLtzmiDZ3uf5BfVQyqL4pfbGMhT1+hBpfR1hNiDgdB04t89/1O/w1cDnyilFU=';
 
-  const events = req.body.events || [];
+const events = req.body.events || [];
+
+  const keywords = [
+    'score', 'howto', 'diamond', 'evolution',
+    'rank', 'rate', 'event', 'gym'
+  ];
 
   for (let event of events) {
 
-    // 🟢 ตอน Add เพื่อน → มีข้อความ
-    if (event.type === 'follow') {
-      await reply(event.replyToken, [menuWithText()], TOKEN);
+    if (event.type !== 'message' && event.type !== 'follow') continue;
+
+    let messages = [];
+
+    // 🟢 ถ้าเป็น keyword → ใส่ response ก่อน
+    if (event.type === 'message') {
+      const text = event.message.text;
+
+      if (keywords.includes(text)) {
+        messages.push({
+          type: 'text',
+          text: `คุณเลือก: ${text}`
+        });
+      }
     }
-    // 🟢 ตอนพิมพ์ → ไม่มีข้อความแล้ว
-      if (event.type === 'message') {
-      await reply(event.replyToken, [menuOnly()], TOKEN);
-    }
+
+    // 🟢 ใส่เมนูทุกครั้ง (สำคัญ)
+    messages.push(menu());
+
+    await reply(event.replyToken, messages, TOKEN);
   }
 
   res.status(200).end();
 }
 
-// 🔹 มีข้อความ (ใช้ครั้งเดียว)
-function menuWithText() {
+// =========================
+function menu() {
   return {
     type: 'text',
-    text: '📘 เลือกหัวข้อที่อยากรู้ 👇',
-    quickReply: { items: menuItems() }
+    text: '👆 ตามนี้เลยจ้า',
+    quickReply: {
+      items: [
+        btn('⭐ การเก็บคะแนน', 'score'),
+        btn('🎮 วิธีการเล่นเกม', 'howto'),
+        btn('💎 บัตรสุ่มเพชร', 'diamond'),
+        btn('🧬 Evolution', 'evolution'),
+        btn('🏆 ระบบ Rank', 'rank'),
+        btn('🎲 อัตราการสุ่ม', 'rate'),
+        btn('🎉 อีเวนต์', 'event'),
+        btn('🏅 Gymleader', 'gym'),
+      ]
+    }
   };
-}
-
-// 🔹 ไม่มีข้อความ (ใช้ตลอด)
-function menuOnly() {
-  return [
-    btn('🎮 วิธีการเล่นเกม', 'howto'),
-    btn('🎲 อัตราการสุ่ม', 'rate'),
-    btn('🎉 อีเวนต์', 'event'),
-    btn('💎 บัตรสุ่มเพชร', 'diamond'),
-    btn('🧬 Evolution', 'evolution'),
-    btn('🏆 ระบบ Rank', 'rank'),
-    btn('🏅 Gymleader', 'gym'),
-    btn('⭐ การเก็บคะแนน', 'score'),
-  ];
-}
-
-// 🔹 เมนู
-function menuItems() {
-  return [
-    btn('🎮 วิธีการเล่นเกม', 'howto'),
-    btn('🎲 อัตราการสุ่ม', 'rate'),
-    btn('🎉 อีเวนต์', 'event'),
-    btn('💎 บัตรสุ่มเพชร', 'diamond'),
-    btn('🧬 Evolution', 'evolution'),
-    btn('🏆 ระบบ Rank', 'rank'),
-    btn('🏅 Gymleader', 'gym'),
-    btn('⭐ การเก็บคะแนน', 'score'),
-  ];
 }
 
 function btn(label, text) {
