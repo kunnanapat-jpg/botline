@@ -17,7 +17,7 @@ export default async function handler(req, res) {
             messages: [
               {
                 type: 'text',
-                text: '\u200B',
+                text: 'เลือกหัวข้อที่อยากรู้👇',
                 quickReply: {
                   items: [
                     btn('⭐ การเก็บคะแนน', 'score'),
