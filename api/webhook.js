@@ -5,35 +5,41 @@ export default async function handler(req, res) {
 
   for (let event of events) {
     if (event.type === 'follow' || event.type === 'message') {
-      await fetch('https://api.line.me/v2/bot/message/reply', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${TOKEN}`
-        },
-        body: JSON.stringify({
-          replyToken: event.replyToken,
-          messages: [
-            {
-              type: 'text',
-              // 👇 ตัวอักษรล่องหน = ไม่มีข้อความรก
-              text: '\u200B',
-              quickReply: {
-                items: [
-                  btn('⭐ การเก็บคะแนน', 'score'),
-                  btn('🎮 วิธีการเล่นเกม', 'howto'),
-                  btn('💎 บัตรสุ่มเพชร', 'diamond'),
-                  btn('🧬 Evolution', 'evolution'),
-                  btn('🏆 ระบบ Rank', 'rank'),
-                  btn('🎲 อัตราการสุ่ม', 'rate'),
-                  btn('🎉 อีเวนต์', 'event'),
-                  btn('🏅 Gymleader', 'gym'),
-                ]
+      try {
+        const r = await fetch('https://api.line.me/v2/bot/message/reply', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${TOKEN}`
+          },
+          body: JSON.stringify({
+            replyToken: event.replyToken,
+            messages: [
+              {
+                type: 'text',
+                text: '\u200B',
+                quickReply: {
+                  items: [
+                    btn('⭐ การเก็บคะแนน', 'score'),
+                    btn('🎮 วิธีการเล่นเกม', 'howto'),
+                    btn('💎 บัตรสุ่มเพชร', 'diamond'),
+                    btn('🧬 Evolution', 'evolution'),
+                    btn('🏆 ระบบ Rank', 'rank'),
+                    btn('🎲 อัตราการสุ่ม', 'rate'),
+                    btn('🎉 อีเวนต์', 'event'),
+                    btn('🏅 Gymleader', 'gym'),
+                  ]
+                }
               }
-            }
-          ]
-        })
-      });
+            ]
+          })
+        });
+
+        const text = await r.text();
+        console.log('LINE RESPONSE:', text);
+      } catch (e) {
+        console.log('ERROR:', e);
+      }
     }
   }
 
