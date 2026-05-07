@@ -40,13 +40,13 @@ function menuOnly() {
 // 🔹 เมนู
 function menuItems() {
   return [
-    btn('⭐ การเก็บคะแนน', 'score'),
     btn('🎮 วิธีการเล่นเกม', 'howto'),
+    btn('🎲 อัตราการสุ่ม', 'rate'),
     btn('🎉 อีเวนต์', 'event'),
+    btn('⭐ Battle Pass', 'Battle Pass'),
     btn('💎 บัตรสุ่มเพชร', 'diamond'),
     btn('🧬 Evolution', 'evolution'),
     btn('🏆 ระบบ Rank', 'rank'),
-    btn('🎲 อัตราการสุ่ม', 'rate'),
     btn('🏅 Gymleader', 'gym'),
   ];
 }
